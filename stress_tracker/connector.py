@@ -132,6 +132,7 @@ class Database:
         text_values = text_values[0:-1]+")"
 
         sql = "INSERT INTO "+table+text_names+text_values
+        print(sql)
 
         mc.execute(sql)
         self.connector.commit()
@@ -144,6 +145,7 @@ class Database:
             print(x)
 
     def insert_user(self,
+                    username,
                     first_name,
                     last_name,
                     gender,
@@ -156,18 +158,18 @@ class Database:
                     ):
         try:
             mycursor = self.connector.cursor()
-            query = f"""INSERT INTO user (user_firstname, user_lastname, user_gender,
+            query = f"""INSERT INTO user (user_username, user_firstname, user_lastname, user_gender,
             user_email, user_program, user_degree, user_password, user_age, user_studyYear)
-            VALUES ("{first_name}", "{last_name}", "{gender}", "{email}", "{program}", "{degree}", "{password}", "{age}", "{study_year}")"""
+            VALUES ("{username}", "{first_name}", "{last_name}", "{gender}", "{email}", "{program}", "{degree}", "{password}", "{age}", "{study_year}")"""
             mycursor.execute(query)
         except Exception as er:
             print(er)
 
-    def insert_admin(self, first_name, last_name, email, password, title):
+    def insert_admin(self, username, first_name, last_name, email, password, title):
         try:
             mycursor = self.connector.cursor()
-            query = f"""INSERT INTO admin (admin_firstname, admin_lastname, admin_email, admin_password, admin_title)
-                VALUES ("{first_name}", "{last_name}", "{email}", "{password}", "{title}")"""
+            query = f"""INSERT INTO admin (admin_username, admin_firstname, admin_lastname, admin_email, admin_password, admin_title)
+                VALUES ("{username}", "{first_name}", "{last_name}", "{email}", "{password}", "{title}")"""
             mycursor.execute(query)
         except Exception as er:
             print(er)
